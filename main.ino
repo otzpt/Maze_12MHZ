@@ -16,10 +16,18 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
+// macros
+#define placeholder
+
+// functions
+void place_holder()
+{
+
+}
 
 void setup() 
 {
-
+  
 }
 
 void loop() 
