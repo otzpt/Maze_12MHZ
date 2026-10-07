@@ -20,13 +20,13 @@ void setup()
 {
  // runs once when the code starts | corre uma unica vez quando o codigo começa
  // initiate hardware here         | inicia o hardware aqui
- serial.begin(115200)
+ Serial.begin(115200)
 }
 
 void loop() 
 {
   // runs repeatedly forever        | corre infinitamente
   // main robot behaviour goes here | codigo principal do robo aqui
-  serial.println("its alive!!!")
+  Serial.println("its alive!!!")
   delay(1000)
 }
