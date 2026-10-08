@@ -2,3 +2,13 @@ body {
 	background-color: black;
 	color: white;
 }
+
+h2 {
+	font-size: 16px
+}
+
+summary {
+	cursor: pointer;
+	font-size: 14px;
+	font-weight: bold;
+}
