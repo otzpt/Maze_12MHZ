@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="pt">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <title>Uso de IA</title>
+    </head>
+    <body>
+        <h1>Uso de IA</h1>
+        <p>
+            A IA ajuda a explicar erros e a escrever rascunhos. Não sabe como o nosso robô está montado
+            e erra com confiança. Trata tudo o que ela escreve como um rascunho de um desconhecido: lê, compila e testa.
+        </p>
+
+        <h2>Website ou IDE</h2>
+        <ul>
+            <li>
+                <strong>Website (chat)</strong>: bom para perguntas e para aprender.
+                Tens de copiar o código para lá e de volta, por isso serve melhor para trechos pequenos.
+            </li>
+            <li>
+                <strong>No editor (ferramenta que lê o projeto)</strong>: vê os ficheiros todos e edita-os diretamente.
+                Mais cómodo, mas altera ficheiros. Usa sempre git, para poderes ver e desfazer o que mudou (<code>git diff</code>).
+            </li>
+        </ul>
+
+        <h2>Como pedir</h2>
+        <p>Um bom pedido diz o contexto, o que esperavas e o que aconteceu.</p>
+        <ul>
+            <li>A placa (ex: Arduino Uno) e os sensores ligados, com os pins.</li>
+            <li>O código relevante, não o projeto todo.</li>
+            <li>A mensagem de erro completa, copiada tal como aparece.</li>
+            <li>O que já tentaste.</li>
+        </ul>
+<pre><code>Tenho um Arduino Uno com um sensor HC-SR04 nos pins 9 (trig) e 10 (echo).
+A funcao readCm() devolve sempre 0. O codigo esta abaixo.
+Qual pode ser a causa?
+
+[codigo]</code></pre>
+
+        <h2>Boas práticas</h2>
+        <ul>
+            <li>Pede explicações, não só código. Se não percebes a resposta, não a uses.</li>
+            <li>Um problema de cada vez.</li>
+            <li>Compila e testa no robô antes de fazer commit.</li>
+            <li>Confirma os pins e as bibliotecas que a IA sugere. Já inventou funções que não existem.</li>
+            <li>Não coloques passwords nem chaves de API nos pedidos.</li>
+        </ul>
+
+        <h2>Regra da equipa</h2>
+        <p>
+            O código da competição tem de ser entendido por quem o submete. Os juízes podem perguntar como funciona.
+            Se não sabes explicar uma parte, pede à IA para a explicar até saberes.
+        </p>
+
+        <p><a href="index.html">Voltar</a></p>
+    </body>
+</html>

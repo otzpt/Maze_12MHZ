@@ -3,8 +3,36 @@ body {
 	color: white;
 }
 
+a {
+	color: #8ab4f8;
+}
+
+body {
+	max-width: 70ch;
+	margin: 0 auto;
+	padding: 16px;
+	line-height: 1.5;
+}
+
 h2 {
 	font-size: 16px
+}
+
+header,
+section,
+footer {
+	border: 1px solid #333;
+	border-radius: 8px;
+	padding: 16px;
+	margin-bottom: 16px;
+}
+
+section h2 {
+	margin-top: 0;
+}
+
+nav {
+	margin-top: 8px;
 }
 
 summary {

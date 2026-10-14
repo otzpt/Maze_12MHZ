@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="pt">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <title>Git, como usar</title>
+    </head>
+    <body>
+        <h1>Git no terminal</h1>
+        <p>
+            Esta página cobre o mínimo para trabalhar em equipa no repositório do GitHub.
+            O git guarda o histórico do código e deixa duas pessoas editar os mesmos ficheiros sem se pisarem.
+        </p>
+
+        <details>
+            <summary>Index</summary>
+            <ul>
+                <li><a href="#conceitos">Conceitos</a></li>
+                <li><a href="#setup">Configuração inicial</a></li>
+                <li><a href="#clone">Descarregar o projeto</a></li>
+                <li><a href="#ciclo">O ciclo do dia a dia</a></li>
+                <li><a href="#conflitos">Conflitos</a></li>
+                <li><a href="#regras">Regras da equipa</a></li>
+                <li><a href="#erros">Erros comuns</a></li>
+                <li><a href="index.html">Voltar</a></li>
+            </ul>
+        </details>
+
+        <h2 id="conceitos">Conceitos</h2>
+        <ul>
+            <li><strong>repositório (repo)</strong>: a pasta do projeto com todo o histórico.</li>
+            <li><strong>commit</strong>: um "save" com uma mensagem a dizer o que mudou.</li>
+            <li><strong>push</strong>: envia os teus commits para o GitHub.</li>
+            <li><strong>pull</strong>: traz do GitHub os commits dos outros.</li>
+            <li><strong>branch</strong>: uma linha de trabalho separada. A principal chama-se <code>main</code>.</li>
+        </ul>
+
+        <h2 id="setup">Configuração inicial (só uma vez)</h2>
+        <p>Instala o git e diz-lhe quem és. O nome e email aparecem em cada commit.</p>
+<pre><code>git config --global user.name "O teu nome"
+git config --global user.email "o.teu@email.com"</code></pre>
+        <p>Precisas também de uma conta no GitHub e de ser adicionado ao repositório pelo otzpt.</p>
+
+        <h2 id="clone">Descarregar o projeto (só uma vez)</h2>
+<pre><code>git clone https://github.com/otzpt/Maze_12MHZ
+cd Maze_12MHZ</code></pre>
+
+        <h2 id="ciclo">O ciclo do dia a dia</h2>
+        <p>Faz sempre por esta ordem.</p>
+        <ol>
+            <li>
+                Antes de começar, traz o trabalho mais recente:
+<pre><code>git pull</code></pre>
+            </li>
+            <li>Edita os ficheiros que precisas.</li>
+            <li>
+                Vê o que mudou:
+<pre><code>git status</code></pre>
+            </li>
+            <li>
+                Escolhe os ficheiros a guardar:
+<pre><code>git add ficheiro.ino
+git add .          # todos os ficheiros alterados</code></pre>
+            </li>
+            <li>
+                Guarda com uma mensagem curta e clara:
+<pre><code>git commit -m "adicionado sensor de distancia"</code></pre>
+            </li>
+            <li>
+                Envia para o GitHub:
+<pre><code>git push</code></pre>
+            </li>
+        </ol>
+
+        <h3>Comandos úteis</h3>
+<pre><code>git status         # o que mudou e o que esta pronto para commit
+git log --oneline  # lista dos ultimos commits
+git diff           # ver as linhas alteradas antes do add</code></pre>
+
+        <h2 id="conflitos">Conflitos</h2>
+        <p>
+            Se duas pessoas mudarem as mesmas linhas, o <code>git pull</code> pára e avisa de um conflito.
+            Isto é normal e não estragou nada.
+        </p>
+        <ol>
+            <li>Abre o ficheiro indicado. Vais ver isto:
+<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+a tua versao
+=======
+a versao do outro
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; origin/main</code></pre>
+            </li>
+            <li>Apaga as linhas <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>=======</code> e <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code> e deixa só o código certo.</li>
+            <li>Corre <code>git add ficheiro</code> e depois <code>git commit</code>.</li>
+        </ol>
+        <p>Se não tiveres a certeza do que manter, pergunta ao outro antes de apagar.</p>
+
+        <h2 id="regras">Regras da equipa</h2>
+        <ul>
+            <li>Faz <code>git pull</code> sempre antes de começar a trabalhar.</li>
+            <li>Faz commits pequenos e frequentes, com mensagens que dizem o que mudou.</li>
+            <li>Não deixes código que não compila no <code>main</code>.</li>
+            <li>Avisa o outro quando vais mexer num ficheiro grande, para evitar conflitos.</li>
+            <li>Nunca uses <code>git push --force</code>. Apaga o trabalho dos outros.</li>
+        </ul>
+
+        <h2 id="erros">Erros comuns</h2>
+        <ul>
+            <li>
+                <strong><code>rejected ... fetch first</code> no push</strong>:
+                alguém enviou antes de ti. Faz <code>git pull</code> e depois <code>git push</code> outra vez.
+            </li>
+            <li>
+                <strong>Alterei um ficheiro sem querer</strong>:
+                <code>git restore ficheiro</code> volta à última versão guardada. As alterações perdem-se.
+            </li>
+            <li>
+                <strong>Esqueci-me de um ficheiro no último commit</strong>:
+                faz <code>git add</code> desse ficheiro e <code>git commit</code> de novo, com outra mensagem.
+            </li>
+            <li>
+                <strong>Não sei o que fiz</strong>:
+                corre <code>git status</code> e lê o que diz. Se continuar confuso, pede ajuda antes de tentar outros comandos.
+            </li>
+        </ul>
+
+        <p><a href="index.html">Voltar</a></p>
+    </body>
+</html>

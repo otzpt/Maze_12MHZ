@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="pt">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <title>IDEs e upload para o robô</title>
+    </head>
+    <body>
+        <h1>IDEs e upload para o robô</h1>
+        <p>
+            O Arduino IDE funciona, mas é lento e tem um editor fraco. Podes escrever o código no editor que quiseres
+            (VS Code, V-Agent, Neovim, etc.) e enviar para o robô pelo terminal com o <strong>arduino-cli</strong>.
+        </p>
+
+
+        <h2>Que IDE usar</h2>
+        <ul>
+            <li>
+                <strong>Arduino IDE</strong>: o mais simples, ideal para começar. Escolher se nunca usaste nada.
+                <a href="https://www.arduino.cc/en/software">Download</a>
+            </li>
+            <li>
+                <strong>VS Code + PlatformIO</strong>: editor melhor, compila e envia com um botão.
+                <a href="https://code.visualstudio.com/download">Download VS Code</a> |
+                <a href="https://platformio.org/install/ide?install=vscode">Instalar PlatformIO</a>
+            </li>
+            <li>
+                <strong>arduino-cli</strong>: só terminal, funciona com qualquer editor (o otzpt usa este).
+                <a href="https://arduino.github.io/arduino-cli/latest/installation/">Instalação</a>
+            </li>
+            <li>
+                <strong>V-Agent</strong>: fork simplificado do Zed, feito pelo otzpt. Interface mais fácil de usar e melhor integração com IA.
+                O upload para o robô faz-se com o arduino-cli.
+                <a href="https://github.com/otzpt/V-Agent">GitHub</a>
+            </li>
+        </ul>
+
+        <h2>Opção 1: Arduino IDE</h2>
+        <ol>
+            <li>Abre o <code>main.ino</code>.</li>
+            <li>Ferramentas &gt; Placa: escolhe a placa do robô.</li>
+            <li>Ferramentas &gt; Porta: escolhe a porta onde o robô aparece.</li>
+            <li>Carrega no botão de upload (seta para a direita).</li>
+        </ol>
+
+        <h2>Opção 2: arduino-cli (sem Arduino IDE)</h2>
+        <p>
+            Instalação e documentação:
+            <a href="https://arduino.github.io/arduino-cli/latest/">arduino.github.io/arduino-cli</a>.
+            Instala com o gestor de pacotes da tua distribuição ou com o script oficial da documentação.
+        </p>
+        <p>Instalação com o script oficial (instala em <code>./bin</code> na pasta atual):</p>
+<pre><code>curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh</code></pre>
+        <p>Depois move o ficheiro <code>bin/arduino-cli</code> para uma pasta do teu <code>PATH</code>, por exemplo <code>~/.local/bin</code>. No Windows, usa o instalador da página de instalação.</p>
+        <p>Os comandos abaixo usam <code>arduino:avr:uno</code> como exemplo. Troca pela placa real do robô.</p>
+<pre><code>arduino-cli core update-index
+arduino-cli core install arduino:avr          # so uma vez
+arduino-cli board list                        # mostra a porta e a placa
+arduino-cli compile --fqbn arduino:avr:uno .
+arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:uno .
+arduino-cli monitor -p /dev/ttyACM0 -c baudrate=115200</code></pre>
+        <p>Corre estes comandos dentro da pasta do projeto. O ficheiro <code>.ino</code> tem de ter o mesmo nome da pasta, ou a pasta deve ter um só <code>.ino</code>.</p>
+
+        <h3>Permissões no Linux</h3>
+        <p>
+            Se o upload falhar com "permission denied", o teu utilizador não tem acesso à porta serie.
+            O grupo certo depende da distribuição (por exemplo <code>dialout</code> em Debian/Ubuntu, <code>uucp</code> em Arch).
+            Vê com <code>ls -l /dev/ttyACM0</code> qual é o grupo da porta.
+        </p>
+
+        <h2>Erros comuns</h2>
+        <ul>
+            <li><strong>Porta não aparece</strong>: o cabo é só de carga. Usa um cabo de dados.</li>
+            <li><strong>Upload falha</strong>: fecha o Serial Monitor, só um programa usa a porta de cada vez.</li>
+            <li><strong>Placa errada</strong>: o compile pode passar e o upload falhar. Confirma com <code>arduino-cli board list</code>.</li>
+        </ul>
+
+        <h2>Nota</h2>
+        <p>Estes comandos não foram testados no robô da equipa. Confirma a placa e a porta antes de usar.</p>
+
+        <p><a href="index.html">Voltar</a></p>
+    </body>
+</html>

@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="pt">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <title>Código, o básico</title>
+    </head>
+    <body>
+        <h1>Código, o básico</h1>
+        <p>
+            O robô usa C/C++ para Arduino. Um programa chama-se <strong>sketch</strong> e tem sempre duas funções.
+            Esta página é um resumo. O guia completo está em
+            <a href="https://github.com/otzpt/Maze_12MHZ/blob/main/ARDUINO_C_BASICS.md">ARDUINO_C_BASICS.md</a> (em inglês).
+        </p>
+
+        <h2>Estrutura</h2>
+<pre><code>void setup() {
+  // corre uma vez quando o robô liga
+  Serial.begin(115200);
+}
+
+void loop() {
+  // corre sem parar
+  Serial.println("ola");
+  delay(1000);
+}</code></pre>
+        <p>O <code>Serial.println</code> escreve no Serial Monitor. Quando algo não funciona, imprime os valores.</p>
+
+        <h2>Variáveis</h2>
+<pre><code>int velocidade = 200;      // numero inteiro
+float cm = 12.5;           // numero decimal
+bool parede = false;       // true ou false
+const int PIN_LED = 13;    // valor que nunca muda</code></pre>
+
+        <h2>Pins</h2>
+<pre><code>pinMode(PIN_LED, OUTPUT);       // define como saida (INPUT para entrada)
+digitalWrite(PIN_LED, HIGH);    // liga (HIGH) ou desliga (LOW)
+int v = digitalRead(pin);       // le HIGH ou LOW
+int a = analogRead(A0);         // le 0 a 1023</code></pre>
+
+        <h2>Decisões e ciclos</h2>
+<pre><code>if (distancia &lt; 10) {
+  parar();
+} else {
+  andar();
+}
+
+for (int i = 0; i &lt; 5; i++) {
+  // corre 5 vezes
+}</code></pre>
+
+        <h2>Funções</h2>
+<pre><code>void andar(int velocidade) {
+  // codigo aqui
+}</code></pre>
+
+        <h2>MicroPython</h2>
+        <p>
+            MicroPython é Python para microcontroladores. Só corre em placas suportadas (por exemplo Raspberry Pi Pico e ESP32).
+            Um Arduino Uno <strong>não</strong> corre MicroPython, por isso esta secção só serve se o robô usar uma dessas placas.
+            Documentação: <a href="https://docs.micropython.org/en/latest/">docs.micropython.org</a>.
+            Para escrever e enviar ficheiros podes usar o <a href="https://thonny.org">Thonny</a> ou o <code>mpremote</code>.
+        </p>
+        <p>
+            O ficheiro <code>main.py</code> corre quando a placa liga. Não há <code>setup</code> e <code>loop</code>, escreves o ciclo tu.
+            Os números dos pins mudam de placa para placa, confirma na documentação da tua.
+        </p>
+<pre><code>from machine import Pin, ADC, PWM
+import time
+
+led = Pin(25, Pin.OUT)          # saida (25 e o LED da Pico)
+botao = Pin(14, Pin.IN, Pin.PULL_UP)
+sensor = ADC(Pin(26))           # entrada analogica
+motor = PWM(Pin(15))
+motor.freq(1000)
+
+while True:                     # equivale ao loop()
+    led.value(1)                # liga (0 desliga)
+    if botao.value() == 0:      # com PULL_UP, carregado le 0
+        motor.duty_u16(40000)   # velocidade de 0 a 65535
+    leitura = sensor.read_u16() # 0 a 65535
+    print("sensor:", leitura)
+    time.sleep(0.5)             # segundos</code></pre>
+
+        <h3>Diferenças para o C</h3>
+        <ul>
+            <li>A indentação define os blocos. Não há <code>{ }</code> nem <code>;</code>.</li>
+            <li>Não declaras tipos: <code>velocidade = 200</code>.</li>
+            <li><code>time.sleep()</code> usa segundos, <code>delay()</code> usa milissegundos. Para ms usa <code>time.sleep_ms()</code>.</li>
+            <li>Funções: <code>def andar(velocidade):</code>.</li>
+            <li>Os valores analógicos e PWM têm escala de 0 a 65535, não 0 a 1023 ou 0 a 255.</li>
+            <li>É mais lento que C. Para ler sensores muito depressa, C é melhor.</li>
+        </ul>
+
+        <h2>Erros comuns</h2>
+        <ul>
+            <li><code>=</code> em vez de <code>==</code> dentro de um <code>if</code>.</li>
+            <li>Falta de <code>;</code> ou de uma <code>}</code>. O erro aponta perto, não no sítio exato.</li>
+            <li>Esquecer o <code>pinMode</code>.</li>
+            <li>Baud rate do Serial Monitor diferente do <code>Serial.begin</code>.</li>
+            <li>Ligar motores diretamente aos pins. Usa sempre uma ponte H e bateria própria, com o GND partilhado.</li>
+        </ul>
+
+        <p><a href="index.html">Voltar</a></p>
+    </body>
+</html>
